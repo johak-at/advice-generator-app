@@ -1,0 +1,7 @@
+{
+  "name": "nuxt-vuetify",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "custom"
+}

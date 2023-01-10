@@ -1,0 +1,33 @@
+{
+  "name": "nuxt-vuetify",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "ionic:build": "npm run generate",
+    "ionic:serve": "npm run dev"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^4.6.1",
+    "@iconify/vue": "^4.0.2",
+    "@unocss/nuxt": "^0.47.6",
+    "nuxt": "3.0.0"
+  },
+  "dependencies": {
+    "@capacitor/android": "4.6.1",
+    "@capacitor/app": "4.1.1",
+    "@capacitor/camera": "4.1.4",
+    "@capacitor/core": "^4.6.1",
+    "@capacitor/haptics": "4.1.0",
+    "@capacitor/keyboard": "4.1.0",
+    "@capacitor/status-bar": "4.1.1",
+    "sass": "^1.56.2",
+    "vite": "^4.0.0",
+    "vue": "^3.2.0",
+    "vuetify": "^3.0.5",
+    "webpack": "^5"
+  }
+}
