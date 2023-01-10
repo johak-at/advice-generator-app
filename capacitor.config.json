@@ -1,0 +1,6 @@
+{
+  "appId": "club.seiwald",
+  "appName": "nuxt-vuetify",
+  "webDir": "dist",
+  "bundledWebRuntime": false
+}
