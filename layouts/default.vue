@@ -1,9 +1,5 @@
 <template>
-  <div>
-    <UiHeader />
-    <v-main>
-      <!-- <UiBreadcrumbs /> NOT WORKING AS INTENDED - DON'T USE -->
-      <slot></slot
-    ></v-main>
-  </div>
+  <v-main>
+    <slot></slot>
+  </v-main>
 </template>
