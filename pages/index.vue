@@ -7,7 +7,7 @@ import { storeToRefs } from "pinia";
 // useStore() and name handling:
 const store = useStore();
 const name = storeToRefs(store).name;
-const advice = ref("");
+let advice = ref("");
 
 const newName = ref("");
 function setName() {
@@ -30,12 +30,11 @@ definePageMeta({
   alias: "/home",
 });
 
-async function getAdvice()
-{
-  const response = await fetch("https://api.adviceslip.com/advice");
+async function getAdvice() {
+  const response = await fetch("https://api.chucknorris.io/jokes/random");
   const data = await response.json();
   console.log(data);
-  advice = data;
+  advice.value = data.value
 }
 
 
@@ -43,9 +42,11 @@ async function getAdvice()
 
 <template>
   <v-container flex flex-col items-center gap-4>
-    <h1>Lostei</h1>
-    <Button @click="getAdvice"> Advice </Button>
-    {{ advice }}
+    <div>
+      <h1>Lostei</h1>
+      <button @click="getAdvice" class="btn btn-primary"> Advice </button>
+      <h1>{{ advice }}</h1>
+    </div>
   </v-container>
 </template>
 
