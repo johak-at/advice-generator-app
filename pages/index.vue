@@ -42,10 +42,9 @@ async function getAdvice() {
 
 <template>
   <v-container flex flex-col items-center gap-4>
-    <div>
-      <h1>Lostei</h1>
-      <button @click="getAdvice" class="btn btn-primary"> Advice </button>
-      <h1>{{ advice }}</h1>
+    <div flex flex-col items-center p-4 h-80 w-120 rounded-lg bg-blue-100>
+      <h1 text-black text- text-center class="card-body">{{ advice }}</h1>
+      <button @click="getAdvice" class="btn btn-secondary"> Advice </button>
     </div>
   </v-container>
 </template>
