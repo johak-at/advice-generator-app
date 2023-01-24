@@ -30,27 +30,69 @@ definePageMeta({
   alias: "/home",
 });
 
+onMounted(() => {
+  getAdvice();
+});
+
 async function getAdvice() {
   const response = await fetch("https://api.chucknorris.io/jokes/random");
-  const data = await response.json();
+  let data = await response.json();
   console.log(data);
-  advice.value = data.value
+  advice.value = "\"" + data.value + "\"";
 }
 
 
 </script>
 
 <template>
-  <v-container flex flex-col items-center gap-4>
-    <div flex flex-col items-center p-4 h-80 w-120 rounded-lg bg-blue-100>
-      <h1 text-black text- text-center class="card-body">{{ advice }}</h1>
-      <button @click="getAdvice" class="btn btn-secondary"> Advice </button>
+  <v-container class="dings" flex flex-col place-items-center gap-4>
+    <div flex flex-col items-center p-4 h-90 w-120 rounded-lg bg-slate-700>
+      <h1 text-xl font-bold text-center class="card-body">{{ advice }}</h1>
+      <button h-18 rounded-full @click="getAdvice" class="maul">
+        <Icon text-8 text-black icon="ph:dice-five-fill" />
+      </button>
     </div>
   </v-container>
+  <!--
+  add an image here
+-->
+
+
 </template>
 
 <style>
-/* * {
-  border: 1px solid red;
-} */
+.dings {
+  /*
+  * Place the thing in the center of the screen
+  */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.maul {
+  padding: 15px 25px;
+  font-size: 24px;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  color: #fff;
+  background-color: #04AA6D;
+  border: none;
+  border-radius: 90px;
+  box-shadow: 0 9px #1e8a62;
+}
+
+/*
+.maul:hover {
+  background-color: #3e8e41
+}
+*/
+
+.maul:active {
+  background-color: #04AA6D;
+  box-shadow: 0 5px #1e8a62;
+  transform: translateY(4px);
+}
 </style>
