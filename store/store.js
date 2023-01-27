@@ -6,7 +6,8 @@ export const useStore = defineStore(
     () => {
         const name = ref('')
         const daisyTheme = ref('dark')
-        return { name, daisyTheme }
+        const jokes = ref([])
+        return { name, daisyTheme, jokes }
     },
     {
         persist: true
