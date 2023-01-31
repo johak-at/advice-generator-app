@@ -42,9 +42,15 @@ async function getAdvice() {
 }
 
 function addJoke() {
-  jokes.value.push(advice.value);
+  jokes.value.push({
+    id: Date.now().toString(16),
+    name: advice.value
+  });
 }
 
+function show(index) {
+  advice.value = jokes.value[index].name;
+}
 
 
 </script>
@@ -54,18 +60,32 @@ function addJoke() {
   <div class="dongs" flex flex-col items-center p-4 h-90 w-120 rounded-lg>
     <h1 text-xl font-bold text-center class="card-body">{{ advice }}</h1>
     <div>
-      <button h-18 rounded-full @click="getAdvice" class="nextButton">
-        <Icon text-8 text-black icon="ph:dice-five-fill" />
-      </button>
-      <button h-18 rounded-full @click="addJoke" class="favButton">
-        <Icon text-8 text-black icon="material-symbols:heart-plus" />
-      </button>
+      <label h-18 rounded-full for="my-modal" class="btn btn-outline btn-info">
+        <Icon text-8 icon="material-symbols:menu" />
+      </label>
+      <label h-18 rounded-full @click="getAdvice" class="btn btn-outline btn-success">
+        <Icon text-8 icon="ph:dice-five-fill" />
+      </label>
+      <label h-18 rounded-full @click="addJoke" class="btn btn-outline btn-warning">
+        <Icon text-8 icon="material-symbols:heart-plus" />
+      </label>
     </div>
   </div>
-  <!--make an input-->
 
-
-
+  <input type="checkbox" id="my-modal" class="modal-toggle" />
+  <div class="modal">
+    <div class="modal-box">
+      <ul v-for="(joke, index) in jokes" :key="joke.id">
+        <label for="my-modal" @click="show(index)">
+          {{ joke.name }}
+          <button class="btn btn-primary">X</button>
+        </label>
+      </ul>
+      <div class="modal-action">
+        <label for="my-modal" class="btn">Leave</label>
+      </div>
+    </div>
+  </div>
 
 </template>
 
@@ -82,7 +102,7 @@ function addJoke() {
   transform: translate(-50%, -50%);
 }
 
-.nextButton {
+/* .nextButton {
   padding: 15px 25px;
   font-size: 24px;
   text-align: center;
@@ -119,4 +139,23 @@ function addJoke() {
   box-shadow: 0 5px #8a1e7c;
   transform: translateY(4px);
 }
+
+.menuButton {
+  padding: 15px 25px;
+  font-size: 24px;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  color: #fff;
+  background-color: orange;
+  border: none;
+  border-radius: 90px;
+  box-shadow: 0 9px #b68221;
+}
+
+.menuButton:active {
+  background-color: orange;
+  box-shadow: 0 5px #b68221;
+  transform: translateY(4px);
+} */
 </style>
