@@ -8,6 +8,7 @@ import { storeToRefs } from "pinia";
 const store = useStore();
 const jokes = storeToRefs(store).jokes;
 let advice = ref("");
+let satz = ref("");
 
 const newName = ref("");
 function setName() {
@@ -52,6 +53,23 @@ function show(index) {
   advice.value = jokes.value[index].name;
 }
 
+function del(index) {
+  jokes.value.splice(index, 1);
+}
+
+function add() {
+
+  jokes.value.push({
+    id: Date.now().toString(16),
+    name: "\"" + satz.value + "\""
+  });
+
+  satz.value = "";
+}
+
+function delAll() {
+  jokes.value = [];
+}
 
 </script>
 
@@ -76,12 +94,14 @@ function show(index) {
   <div class="modal">
     <div class="modal-box">
       <ul v-for="(joke, index) in jokes" :key="joke.id">
-        <label for="my-modal" @click="show(index)">
+        <label hover:bg-slate-500 active:bg-slate-600 flex gap-4 items-center py-3 for="my-modal" @click="show(index)">
+          <label rounded-full class="btn btn-outline btn-error" @click="del(index)">X</label>
           {{ joke.name }}
-          <button class="btn btn-primary">X</button>
         </label>
       </ul>
-      <div class="modal-action">
+      <div flex space-x-10 class="modal-action">
+        <label @click="delAll" class="btn btn-outline btn-error">Delete All</label>
+        <input v-model="satz" @keyup.enter="add" placeholder="Write your joke" />
         <label for="my-modal" class="btn">Leave</label>
       </div>
     </div>
