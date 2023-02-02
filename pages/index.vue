@@ -58,13 +58,14 @@ function del(index) {
 }
 
 function add() {
+  if (satz.value.length <= 250 && satz.value.length > 0) {
+    jokes.value.push({
+      id: Date.now().toString(16),
+      name: "\"" + satz.value + "\""
+    });
 
-  jokes.value.push({
-    id: Date.now().toString(16),
-    name: "\"" + satz.value + "\""
-  });
-
-  satz.value = "";
+    satz.value = "";
+  }
 }
 
 function delAll() {
@@ -75,9 +76,9 @@ function delAll() {
 
 <template>
 
-  <div class="dongs" flex flex-col items-center p-4 h-90 w-120 rounded-lg>
+  <div class="dings" flex flex-col p-3 h-90 w-120 rounded-lg>
     <h1 text-xl font-bold text-center class="card-body">{{ advice }}</h1>
-    <div>
+    <div flex justify-center gap-1>
       <label h-18 rounded-full for="my-modal" class="btn btn-outline btn-info">
         <Icon text-8 icon="material-symbols:menu" />
       </label>
@@ -94,14 +95,16 @@ function delAll() {
   <div class="modal">
     <div class="modal-box">
       <ul v-for="(joke, index) in jokes" :key="joke.id">
-        <label hover:bg-slate-500 active:bg-slate-600 flex gap-4 items-center py-3 for="my-modal" @click="show(index)">
+        <label flex gap-4 items-center py-3 for="my-modal">
           <label rounded-full class="btn btn-outline btn-error" @click="del(index)">X</label>
-          {{ joke.name }}
+          <p hover:bg-slate-700 active:bg-slate-800 w-full pl-2 pr-1 py-1 @click="show(index)">{{ joke.name }}</p>
         </label>
       </ul>
-      <div flex space-x-10 class="modal-action">
+      <div flex justify-between class="modal-action">
         <label @click="delAll" class="btn btn-outline btn-error">Delete All</label>
         <input v-model="satz" @keyup.enter="add" placeholder="Write your joke" />
+        <label v-if="satz.length > 0 && satz.length <= 250">{{ satz.length }}</label>
+        <label text-red v-if="satz.length > 250">{{ satz.length }}</label>
         <label for="my-modal" class="btn">Leave</label>
       </div>
     </div>
@@ -111,71 +114,10 @@ function delAll() {
 
 <style>
 .dings {
-  background-color: #202632;
-}
-
-.dongs {
   background-color: #313b47;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
-
-/* .nextButton {
-  padding: 15px 25px;
-  font-size: 24px;
-  text-align: center;
-  cursor: pointer;
-  outline: none;
-  color: #fff;
-  background-color: #04AA6D;
-  border: none;
-  border-radius: 90px;
-  box-shadow: 0 9px #1e8a62;
-}
-
-.nextButton:active {
-  background-color: #04AA6D;
-  box-shadow: 0 5px #1e8a62;
-  transform: translateY(4px);
-}
-
-.favButton {
-  padding: 15px 25px;
-  font-size: 24px;
-  text-align: center;
-  cursor: pointer;
-  outline: none;
-  color: #fff;
-  background-color: #aa04aa;
-  border: none;
-  border-radius: 90px;
-  box-shadow: 0 9px #8a1e7c;
-}
-
-.favButton:active {
-  background-color: #aa04aa;
-  box-shadow: 0 5px #8a1e7c;
-  transform: translateY(4px);
-}
-
-.menuButton {
-  padding: 15px 25px;
-  font-size: 24px;
-  text-align: center;
-  cursor: pointer;
-  outline: none;
-  color: #fff;
-  background-color: orange;
-  border: none;
-  border-radius: 90px;
-  box-shadow: 0 9px #b68221;
-}
-
-.menuButton:active {
-  background-color: orange;
-  box-shadow: 0 5px #b68221;
-  transform: translateY(4px);
-} */
 </style>
