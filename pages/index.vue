@@ -1,60 +1,37 @@
 <script setup>
 import { Icon } from "@iconify/vue";
-import { Camera, CameraResultType } from "@capacitor/camera";
 import { useStore } from "~/store/store";
 import { storeToRefs } from "pinia";
 
-// useStore() and name handling:
 const store = useStore();
 const jokes = storeToRefs(store).jokes;
 let advice = ref("");
 let satz = ref("");
-
-const newName = ref("");
-function setName() {
-  store.name = newName.value;
-  newName.value = "";
-}
-
-// taking a picture and displaying it:
-const imageUrl = ref(null);
-async function takePic() {
-  const image = await Camera.getPhoto({
-    quality: 90,
-    allowEditing: true,
-    resultType: CameraResultType.Uri,
-  });
-  imageUrl.value = image.webPath;
-}
 
 definePageMeta({
   alias: "/home",
 });
 
 onMounted(() => {
-  getAdvice();
+  getChuck();
 });
 
-async function getAdvice() {
+async function getChuck() {
   const response = await fetch("https://api.chucknorris.io/jokes/random");
   let data = await response.json();
   if (data.value.length <= 250)
     advice.value = "\"" + data.value + "\"";
 }
 
-function addJoke() {
-  jokes.value.push({
-    id: Date.now().toString(16),
-    name: advice.value
-  });
-}
-
 function show(index) {
   advice.value = jokes.value[index].name;
 }
 
-function del(index) {
-  jokes.value.splice(index, 1);
+function addChuck() {
+  jokes.value.push({
+    id: Date.now().toString(16),
+    name: advice.value
+  });
 }
 
 function add() {
@@ -63,9 +40,12 @@ function add() {
       id: Date.now().toString(16),
       name: "\"" + satz.value + "\""
     });
-
     satz.value = "";
   }
+}
+
+function del(index) {
+  jokes.value.splice(index, 1);
 }
 
 function delAll() {
@@ -82,10 +62,10 @@ function delAll() {
       <label h-18 rounded-full for="my-modal" class="btn btn-outline btn-info">
         <Icon text-8 icon="material-symbols:menu" />
       </label>
-      <label h-18 rounded-full @click="getAdvice" class="btn btn-outline btn-success">
+      <label h-18 rounded-full @click="getChuck" class="btn btn-outline btn-success">
         <Icon text-8 icon="ph:dice-five-fill" />
       </label>
-      <label h-18 rounded-full @click="addJoke" class="btn btn-outline btn-warning">
+      <label h-18 rounded-full @click="addChuck" class="btn btn-outline btn-warning">
         <Icon text-8 icon="material-symbols:heart-plus" />
       </label>
     </div>
